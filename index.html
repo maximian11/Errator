@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0B0D0C">
 <!-- İndirme adresi: boş kalırsa site github.io'daysa aynı reponun Releases'ından, değilse downloads/ klasöründen indirir.
      Başka bir yerde barındırırsan buraya exe'lerin bulunduğu klasörün adresini yaz, örn. https://github.com/KULLANICI/errator/releases/latest/download/ -->
-<meta name="errator-release" content="">
+<meta name="errator-release" content="https://github.com/maximian11/Errator/releases/latest/download/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/fonts.css">
 <script>document.documentElement.classList.add("js")</script>
@@ -407,7 +407,7 @@ document.querySelectorAll('.mtabs').forEach(tb=>tb.addEventListener('click',e=>{
 // ---- indirme bağlantıları: GitHub Pages'te Releases'a, yerelde downloads/ klasörüne ----
 (function(){ const m=document.querySelector('meta[name="errator-release"]'); let base=m?m.content.trim():'';
   if(!base&&/\.github\.io$/i.test(location.hostname)){ const user=location.hostname.split('.')[0], seg=location.pathname.split('/').filter(Boolean)[0]||''; const repo=seg&&!seg.includes('.')?seg:user+'.github.io'; base=`https://github.com/${user}/${repo}/releases/latest/download/` }
-  if(!base) return; if(!base.endsWith('/')) base+='/'; document.querySelectorAll('a[href^="downloads/"]').forEach(a=>{ a.href=base+a.getAttribute('href').slice(10); a.removeAttribute('download') }) })();
+  if(!base||/^(localhost|127.0.0.1)$/.test(location.hostname)) return; if(!base.endsWith('/')) base+='/'; document.querySelectorAll('a[href^="downloads/"]').forEach(a=>{ a.href=base+a.getAttribute('href').slice(10); a.removeAttribute('download') }) })();
 
 // ---- bağış: adresi kopyala ----
 const toast=m=>{ const el=document.getElementById('toast'); el.textContent=m; el.classList.add('on'); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove('on'),2200) };
