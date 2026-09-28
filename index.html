@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Errator — a free worldbuilding studio</title>
+<meta name="description" content="Errator is a free, offline worldbuilding studio: real-time galaxy maps, hex world maps, a living wiki, freeform family trees, timelines, calendars and printable books. Made by Maximian11.">
+<meta name="theme-color" content="#0B0D0C">
+<!-- İndirme adresi: boş kalırsa site github.io'daysa aynı reponun Releases'ından, değilse downloads/ klasöründen indirir.
+     Başka bir yerde barındırırsan buraya exe'lerin bulunduğu klasörün adresini yaz, örn. https://github.com/KULLANICI/errator/releases/latest/download/ -->
+<meta name="errator-release" content="">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+/* Errator — Radyoaktif Limonata */
+:root{--bg:#0B0D0C;--s1:#111513;--s2:#171C19;--s3:#1F2521;--line:#232A25;--line2:#313A33;--text:#E9EEE6;--muted:#9BA59A;--dim:#69736A;
+  --lime:#C6F24E;--amber:#FFC857;--teal:#5EE6C4;--danger:#FF6B5E;--on-lime:#0A0F06;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--ui:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,Consolas,monospace;--read:"Newsreader",Georgia,serif;
+  --ease:cubic-bezier(.22,.8,.24,1);--r:18px;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+img{max-width:100%;display:block}
+::selection{background:rgba(198,242,78,.3)}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin:0 auto}
+/* nav */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.nav .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em}
+.brand img{width:32px;height:32px}
+.nav .sp{flex:1}
+.nav-links{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+.nav-links a{text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--text)}
+.lang{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:3px;gap:2px;background:var(--s1)}
+.lang button{all:unset;cursor:pointer;font:600 12px var(--mono);padding:5px 10px;border-radius:999px;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--lime);color:var(--on-lime)}
+/* buttons */
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line2);background:var(--s1);color:var(--text);transition:transform .2s var(--ease),background .2s,border-color .2s,box-shadow .2s;position:relative;text-align:center}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--lime);color:var(--on-lime);border-color:transparent;box-shadow:0 0 0 1px rgba(198,242,78,.5),0 10px 40px -10px rgba(198,242,78,.55)}
+.btn.primary:hover{box-shadow:0 0 0 1px rgba(198,242,78,.7),0 14px 50px -8px rgba(198,242,78,.7)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn small{display:block;font-weight:500;font-size:11.5px;opacity:.72}
+.btn .bt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
+.btn.sm{padding:8px 13px;font-size:13.5px;border-radius:10px}
+/* hero */
+.hero{position:relative;padding:84px 0 40px;overflow:hidden}
+.hero-sky{position:absolute;left:0;right:0;top:-40px;height:620px;pointer-events:none;opacity:.62;-webkit-mask:linear-gradient(#000 35%,transparent);mask:linear-gradient(#000 35%,transparent)}
+.hero-sky canvas{width:100%;height:100%;display:block}
+.hero-g{position:relative;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:48px;align-items:center}
+.kick{display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lime);padding:6px 12px;border:1px solid rgba(198,242,78,.35);border-radius:999px;background:rgba(198,242,78,.07)}
+.kick i{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+h1.title{font-family:var(--display);font-weight:800;font-size:clamp(42px,6.2vw,78px);line-height:.98;letter-spacing:-.035em;margin:22px 0 18px}
+.rot{display:inline-block;position:relative;color:var(--lime);min-width:1ch;white-space:nowrap}
+.rot span{display:inline-block;transition:transform .5s var(--ease),opacity .4s,filter .4s}
+.rot span.out{transform:translateY(-40%);opacity:0;filter:blur(6px)}
+.rot span.in{transform:translateY(40%);opacity:0;filter:blur(6px)}
+.lead{font-size:clamp(17px,1.6vw,19.5px);color:var(--muted);max-width:34em;margin:0 0 28px}
+.lead b{color:var(--text);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cta-note{margin-top:14px;font:12.5px var(--mono);color:var(--dim)}
+.free{font-family:var(--display);font-weight:800}
+.shiny{background:linear-gradient(110deg,var(--amber) 35%,#fff7d6 50%,var(--amber) 65%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3.2s linear infinite}
+@keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
+/* media frames */
+.frame{position:relative;border-radius:16px;overflow:hidden;background:var(--s1);border:1px solid var(--line2);box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(198,242,78,.06);transform-style:preserve-3d;will-change:transform}
+.frame .bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--s2)}
+.frame .bar i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.frame .bar i:first-child{background:#FF6B5E}.frame .bar i:nth-child(2){background:var(--amber)}.frame .bar i:nth-child(3){background:var(--lime)}
+.frame .bar b{margin-left:8px;font:500 11.5px var(--mono);color:var(--dim)}
+.frame img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#0d100e}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.08),transparent 45%)}
+.slides{position:relative;aspect-ratio:16/10;background:#0d100e}
+.slides img{position:absolute;inset:0;height:100%;opacity:0;transform:scale(1.03);transition:opacity .9s var(--ease),transform 5s linear}
+.slides img.on{opacity:1;transform:scale(1)}
+.dots{margin-left:auto;display:flex;align-items:center;gap:5px}
+.dots button{all:unset;cursor:pointer;width:7px;height:7px;border-radius:99px;background:var(--line2);transition:width .3s var(--ease),background .3s}
+.dots button[aria-current="true"]{width:22px;background:var(--lime)}
+.mtabs{display:inline-flex;gap:4px;padding:3px;border-radius:999px;background:var(--s2);border:1px solid var(--line2);margin-bottom:12px}
+.mtabs button{all:unset;cursor:pointer;font:600 12.5px var(--ui);padding:6px 12px;border-radius:999px;color:var(--muted)}
+.mtabs button[aria-pressed="true"]{background:var(--s3);color:var(--text);box-shadow:inset 0 0 0 1px var(--line2)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 10px}
+.stat{padding:18px;border-radius:var(--r);border:1px solid var(--line);background:var(--s1)}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(28px,3.4vw,42px);line-height:1;color:var(--text)}
+.stat span{font-size:13.5px;color:var(--muted)}
+/* sections */
+section{position:relative}
+[id]{scroll-margin-top:84px}
+.sec{padding:90px 0 20px}
+.sec-h{max-width:44em;margin-bottom:34px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(32px,4.2vw,52px);line-height:1.02;letter-spacing:-.03em;margin:10px 0 14px}
+.sec-h p{color:var(--muted);font-size:18px;margin:0}
+.feat{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;padding:46px 0;border-top:1px solid var(--line)}
+.feat:nth-of-type(even){grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.feat:nth-of-type(even) .ft{order:2}
+.fnum{font:500 13px var(--mono);color:var(--lime)}
+.feat h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,2.8vw,36px);letter-spacing:-.025em;line-height:1.05;margin:8px 0 12px}
+.feat p{color:var(--muted);margin:0 0 14px;font-size:16.5px}
+.feat ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.feat li{display:flex;gap:10px;font-size:15px;color:var(--text)}
+.feat li::before{content:"";flex:none;width:7px;height:7px;margin-top:9px;border-radius:2px;background:var(--lime);transform:rotate(45deg)}
+.spot{position:relative}
+.spot::before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(198,242,78,.14),transparent 45%)}
+.spot:hover::before{opacity:1}
+/* rights */
+.rights{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{padding:24px;border-radius:var(--r);border:1px solid var(--line);background:linear-gradient(180deg,var(--s1),var(--bg));overflow:hidden}
+.card h4{font-family:var(--display);font-size:21px;font-weight:800;letter-spacing:-.02em;margin:12px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(198,242,78,.1);border:1px solid rgba(198,242,78,.3);color:var(--lime)}
+.card .ic svg{width:22px;height:22px}
+.card.no .ic{background:rgba(255,107,94,.1);border-color:rgba(255,107,94,.35);color:var(--danger)}
+.card.yes .ic{background:rgba(94,230,196,.1);border-color:rgba(94,230,196,.35);color:var(--teal)}
+.legal{margin-top:18px;padding:18px 20px;border-radius:14px;border:1px dashed var(--line2);color:var(--muted);font-size:14.5px}
+.legal b{color:var(--text)}
+/* download */
+.dl{margin-top:40px;padding:48px;border-radius:26px;border:1px solid rgba(198,242,78,.3);background:radial-gradient(700px 300px at 20% 0%,rgba(198,242,78,.12),transparent 70%),radial-gradient(600px 260px at 90% 100%,rgba(94,230,196,.1),transparent 70%),var(--s1);display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center}
+.dl h2{margin-top:0}
+.dl .cta{justify-content:flex-start}
+.req{display:grid;gap:8px;font-size:14.5px;color:var(--muted)}
+.req div{display:flex;gap:10px;align-items:center}
+.req svg{width:18px;height:18px;color:var(--lime);flex:none}
+/* donate */
+.don{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;padding:30px;border-radius:24px;border:1px solid var(--line2);background:var(--s1)}
+.don h3{font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-.02em;margin:6px 0 8px}
+.don p{margin:0 0 16px;color:var(--muted)}
+.addr{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.addr code{flex:1;min-width:0;font:500 14px var(--mono);padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line2);word-break:break-all;user-select:all}
+.warn{margin-top:14px;display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.3);color:#FFB3AB;font-size:14px;line-height:1.5}
+.warn svg{width:20px;height:20px;flex:none;color:var(--danger);margin-top:1px}
+.qr{width:190px;padding:10px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px var(--line2),0 20px 50px -20px rgba(198,242,78,.4)}
+.qr img{width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated}
+.qr figcaption{font:500 11px var(--mono);color:#333;text-align:center;margin-top:6px}
+.don-link{margin-top:14px}
+/* footer */
+footer{margin-top:90px;padding:34px 0 50px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;justify-content:space-between;align-items:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;z-index:200;padding:10px 16px;border-radius:12px;background:var(--s3);border:1px solid var(--line2);font-size:14px;transition:all .3s var(--ease);pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* reveal (React Bits: AnimatedContent / FadeContent) */
+.js .rv{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){ .js .rv{opacity:1;transform:none;filter:none;transition:none} .shiny,.kick i{animation:none} html{scroll-behavior:auto} }
+/* responsive */
+@media (max-width:980px){
+  .hero-g,.feat,.feat:nth-of-type(even),.dl{grid-template-columns:1fr}
+  .feat:nth-of-type(even) .ft{order:0}
+  .rights{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+  .hero{padding-top:48px}
+}
+@media (max-width:640px){
+  .dl{padding:26px}
+  .don{grid-template-columns:1fr;padding:22px}
+  .qr{margin:0 auto}
+  .btn{width:100%}
+  .cta{flex-direction:column;align-items:stretch}
+  .nav .dlbtn{display:none}
+  .sec{padding-top:64px}
+  .feat{padding:34px 0;gap:26px}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="#top"><img src="assets/mark.svg" alt="">Errator</a>
+  <div class="nav-links"><a href="#features" data-i="nav.features">Features</a><a href="#free" data-i="nav.free">Free forever</a><a href="#download" data-i="nav.download">Download</a><a href="#donate" data-i="nav.donate">Donate</a></div>
+  <span class="sp"></span>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="tr" aria-pressed="false">TR</button></div>
+  <a class="btn primary sm dlbtn spark" href="#download" data-i="nav.get">Get Errator</a>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="hero-sky" id="sky"></div>
+  <div class="wrap hero-g">
+    <div>
+      <span class="kick rv"><i></i><span data-i="hero.kick">Free worldbuilding studio · offline</span></span>
+      <h1 class="title rv" id="h1"><span data-i="hero.t1">Build worlds</span><br><span data-i="hero.t2">that feel</span> <span class="rot" id="rot"><span>alive.</span></span></h1>
+      <p class="lead rv" data-i-html="hero.lead">Answer questions and watch your answers become <b>wiki pages, maps, family trees and timelines</b> — then print it all as a book. Errator runs on your computer, never online.</p>
+      <div class="cta rv">
+        <a class="btn primary spark magnet" href="downloads/Errator-Setup.exe" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg><span class="bt"><span data-i="dl.setup">Download for Windows</span><small data-i="dl.setupS">Installer · 75 MB</small></span></a>
+        <a class="btn spark" href="downloads/Errator-Portable.exe" download><span class="bt"><span data-i="dl.port">Portable .exe</span><small data-i="dl.portS">No install · 75 MB</small></span></a>
+      </div>
+      <p class="cta-note rv"><span class="free shiny" data-i="hero.free">Free forever.</span> <span data-i="hero.note">Windows 10/11 · no account · no internet needed</span></p>
+    </div>
+    <div class="rv"><div class="frame tilt show" id="show"><div class="bar"><i></i><i></i><i></i><b id="show-l" data-i="m.geo">World map</b><div class="dots" id="show-d"></div></div>
+      <div class="slides"><img class="on" src="media/geomap.webp" data-l="m.geo" alt="Errator world map" loading="eager"><img src="media/family.webp" data-l="m.fam" alt="" loading="lazy"><img src="media/galaxy.webp" data-l="m.galaxy2" alt="" loading="lazy"><img src="media/wiki.webp" data-l="m.wiki" alt="" loading="lazy"><img src="media/timeline.webp" data-l="m.tl" alt="" loading="lazy"></div>
+      </div></div>
+  </div>
+  <div class="wrap"><div class="stats rv">
+    <div class="stat spot"><b data-count="102">0</b><span data-i="st.pages">kinds of pages</span></div>
+    <div class="stat spot"><b data-count="15">0</b><span data-i="st.ties">kinds of family ties</span></div>
+    <div class="stat spot"><b data-count="2">0</b><span data-i="st.langs">languages, English & Turkish</span></div>
+    <div class="stat spot"><b data-count="0">0</b><span data-i="st.servers">servers — your worlds stay yours</span></div>
+  </div></div>
+</header>
+
+<main>
+<section class="sec" id="features"><div class="wrap">
+  <div class="sec-h rv"><span class="eyebrow" data-i="f.eye">What you can build</span><h2 data-i="f.h">Everything a world needs, in one quiet room.</h2><p data-i="f.p">Maps that move, a wiki that writes itself from your answers, family trees without rules, and a book at the end.</p></div>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">01</span><h3 data-i="f1.h">Real-time galaxy maps</h3><p data-i="f1.p">Drop a star system and watch it turn. Planets follow real orbits, ships fly their routes, gravity bends the grid — and time is yours to speed up or pause.</p>
+      <ul><li data-i="f1.a">Stars, planets, moons, belts, black holes, nebulae</li><li data-i="f1.b">22 kinds of ships, plus stations and jump gates</li><li data-i="f1.c">Every body can link to its own wiki page</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="galaxy"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.galaxy2">Galaxy map</b></div><img data-m="galaxy" src="media/galaxy.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">02</span><h3 data-i="f2.h">A mind map of your universe</h3><p data-i="f2.p">Every page you write finds its place on a living map of links. See at a glance what connects to what — and what is still waiting to be written.</p>
+      <ul><li data-i="f2.a">Grows by itself as you write</li><li data-i="f2.b">Click any node to open its page</li><li data-i="f2.c">Export it as a single offline file</li></ul></div>
+    <div class="rv"><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.mind">Universe map</b></div><img src="media/mindmap.webp" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">03</span><h3 data-i="f3.h">Geographic hex maps</h3><p data-i="f3.p">Generate a continent in a click, then paint it: forests, mountains, rivers, roads, cities, ruins. Every symbol can open the page it belongs to.</p>
+      <ul><li data-i="f3.a">35 terrains, 79 landmarks, 90+ symbols</li><li data-i="f3.b">Brushes, fill, rivers, roads and regions</li><li data-i="f3.c">A whole continent in one click</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="geomap"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.geo">World map</b></div><img data-m="geomap" src="media/geomap.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">04</span><h3 data-i="f4.h">A wiki that writes itself</h3><p data-i="f4.p">Answer questions and the answers land in the right pages. Type <b>[[</b> to link anything; pages you mention but haven't written yet are waiting for you.</p>
+      <ul><li data-i="f4.a">100+ page types: cities, gods, wars, species…</li><li data-i="f4.b">Links, backlinks and a search that knows your world</li><li data-i="f4.c">Daily sparks: questions drawn from your own world</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="wiki"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.wiki">Wiki page</b></div><img data-m="wiki" src="media/wiki.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">05</span><h3 data-i="f5.h">Family trees without rules</h3><p data-i="f5.p">A freeform canvas, like a whiteboard: drag an arrow from a card and a new tie is born. Secret lovers, forbidden marriages, more than two parents, time loops — nothing is off-limits, and Errator understands every tie it draws.</p>
+      <ul><li data-i="f5.a">15 kinds of ties, including ones you name yourself</li><li data-i="f5.b">Spots blood ties, half-siblings, cousins and loops</li><li data-i="f5.c">Notes, frames, guides, snapping, undo</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="family"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.fam">Family canvas</b></div><img data-m="family" src="media/family.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">06</span><h3 data-i="f6.h">Export from anywhere</h3><p data-i="f6.p">Turn your world into a printable book that reads like a person wrote it — with a cover, chapters and an index. Or save any map, tree or timeline as PNG and PDF.</p>
+      <ul><li data-i="f6.a">A book in natural prose, in two languages</li><li data-i="f6.b">PNG and PDF for maps, trees and timelines</li><li data-i="f6.c">One-file backups and a shareable mind map</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="export"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.exp">Share & export</b></div><img data-m="export" src="media/export.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">07</span><h3 data-i="f7.h">Made for the keyboard</h3><p data-i="f7.p">Press <b>Ctrl K</b> and jump to any page, map or command. Every studio has its shortcuts, and <b>?</b> always shows them.</p>
+      <ul><li data-i="f7.a">Command palette with full-text search</li><li data-i="f7.b">Back and forward with Alt + arrows</li><li data-i="f7.c">Tool keys in every map and canvas</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="shortcuts"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.keys">Shortcuts</b></div><img data-m="shortcuts" src="media/shortcuts.gif" alt="" loading="lazy"></div></div>
+  </article>
+
+  <article class="feat">
+    <div class="ft rv"><span class="fnum">08</span><h3 data-i="f8.h">Timelines and calendars</h3><p data-i="f8.p">Ages flow from left to right; events hang beneath them. Invent your own calendar — months, seasons, weekdays — and date everything in it.</p>
+      <ul><li data-i="f8.a">Eras, events and scenes in order or true intervals</li><li data-i="f8.b">Custom calendars with their own months and seasons</li><li data-i="f8.c">Export the timeline as an image or PDF</li></ul></div>
+    <div class="rv"><div class="mtabs" data-media="timeline"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button><button type="button" aria-pressed="false" data-v="cal" data-i="m.cal">Calendar</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.tl">Timeline</b></div><img data-m="timeline" src="media/timeline.gif" alt="" loading="lazy"></div></div>
+  </article>
+</div></section>
+
+<section class="sec" id="free"><div class="wrap">
+  <div class="sec-h rv"><span class="eyebrow" data-i="r.eye">Free, forever</span><h2 data-i="r.h">Made by Maximian11. Free for everyone.</h2><p data-i="r.p">Errator was made by Maximian11, who holds all rights to it. It is free for anyone to use — and it will stay that way.</p></div>
+  <div class="rights">
+    <div class="card yes spot rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></div><h4 data-i="r1.h">Your words are yours</h4><p data-i="r1.p">The texts you write in Errator belong to you. Publish them, sell them, build a book or a game on them — commercially, too.</p></div>
+    <div class="card spot rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div><h4 data-i="r2.h">Visuals are for you only</h4><p data-i="r2.p">Maps, family trees, mind maps and other visuals made in the app are for personal use. They may not be sold.</p></div>
+    <div class="card no spot rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg></div><h4 data-i="r3.h">Never for sale</h4><p data-i="r3.p">Errator is free, so it can never be sold — not by anyone, not in any form, not bundled into a product, not for any price.</p></div>
+  </div>
+  <p class="legal rv" data-i-html="r.legal"><b>© 2026 Maximian11.</b> All rights to Errator belong to Maximian11. Errator is free for everyone to use and may never be sold, rented or bundled into a product for sale. The texts you write are yours, including for commercial use; maps and other visuals made in the app are for personal use only. <b>Privacy:</b> Errator never connects to any server — no accounts, analytics, cookies or trackers. Your worlds stay on your computer.</p>
+
+  <div class="dl rv" id="download">
+    <div><span class="eyebrow" data-i="d.eye">Download</span><h2 data-i="d.h">Start your first world tonight.</h2>
+      <div class="cta">
+        <a class="btn primary spark magnet" href="downloads/Errator-Setup.exe" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg><span class="bt"><span data-i="dl.setup">Download for Windows</span><small data-i="dl.setupS">Installer · 75 MB</small></span></a>
+        <a class="btn spark" href="downloads/Errator-Portable.exe" download><span class="bt"><span data-i="dl.port">Portable .exe</span><small data-i="dl.portS">No install · 75 MB</small></span></a>
+      </div></div>
+    <div class="req">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span data-i="d.r1">Windows 10 or 11, 64-bit</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span data-i="d.r2">Works completely offline</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span data-i="d.r3">No account, no ads, no tracking</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span data-i="d.r4">English and Turkish</span></div>
+      <p style="margin:6px 0 0;font-size:13px;color:var(--dim)" data-i="d.smart">Windows may warn about an unknown publisher the first time; choose “More info → Run anyway”.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="donate"><div class="wrap">
+  <div class="don rv">
+    <div>
+      <span class="eyebrow" data-i="n.eye">Support Errator</span>
+      <h3 data-i="n.h">Donate if you like</h3>
+      <p data-i="n.p">Errator is and will stay free. If it brings you joy and you want to help it grow, you can send USDT to the Tron address below. Every donation buys time for new features.</p>
+      <div class="addr"><code id="tron">TH31UCWA8LLE8s45dNx1uPEoEWQcuCdvFc</code><button type="button" class="btn sm spark" id="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></svg><span data-i="n.copy">Copy</span></button></div>
+      <div class="warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.01"/></svg><span data-i-html="n.warn">Send <b>USDT on the Tron network (TRC-20)</b> only. Transfers made on any other network will be lost and cannot be recovered.</span></div>
+      <!-- BAĞIŞ BAĞLANTISI: ileride buraya bir bağış linki eklenebilir, örn. <a class="btn sm" href="https://…">Buy me a coffee</a> -->
+      <div class="don-link" id="donlink" hidden></div>
+    </div>
+    <figure class="qr" style="margin:0"><img src="assets/tron-qr.png" alt="QR code of the Tron (TRC-20) address" width="420" height="420"><figcaption>TRON · TRC-20 · USDT</figcaption></figure>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Maximian11 · <span data-i="ft.free">Errator is free and may never be sold.</span></span>
+  <span data-i="ft.priv">No cookies. No trackers. No servers.</span>
+</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ---- dil: ilk açılışta İngilizce ----
+const T={
+ en:{},
+ tr:{"nav.features":"Özellikler","nav.free":"Hep ücretsiz","nav.download":"İndir","nav.donate":"Bağış","nav.get":"Errator'u indir",
+  "hero.kick":"Ücretsiz dünya kurma stüdyosu · internetsiz","hero.t1":"Dünyalar kur,","hero.t2":"bırak","hero.lead":"Sorulara cevap ver, cevapların <b>wiki sayfalarına, haritalara, soy ağaçlarına ve zaman çizgilerine</b> dönüşsün — sonra hepsini bir kitap olarak bas. Errator internette değil, senin bilgisayarında çalışır.",
+  "dl.setup":"Windows için indir","dl.setupS":"Kurulum · 75 MB","dl.port":"Taşınabilir .exe","dl.portS":"Kurulumsuz · 75 MB","hero.free":"Sonsuza dek ücretsiz.","hero.note":"Windows 10/11 · hesap yok · internet gerekmez",
+  "m.galaxy":"Galaksi haritası · canlı","st.pages":"sayfa türü","st.ties":"akrabalık bağı türü","st.langs":"dil: Türkçe ve İngilizce","st.servers":"sunucu — dünyaların senin",
+  "f.eye":"Neler kurabilirsin","f.h":"Bir dünyanın ihtiyacı olan her şey, tek bir sakin odada.","f.p":"Hareket eden haritalar, cevaplarından kendini yazan bir wiki, kuralsız soy ağaçları ve en sonunda bir kitap.",
+  "f1.h":"Gerçek zamanlı galaksi haritaları","f1.p":"Bir yıldız sistemi bırak, dönmesini izle. Gezegenler gerçek yörüngelerde döner, gemiler rotalarında uçar, kütleçekimi ızgarayı büker — zamanı hızlandırmak ya da durdurmak senin elinde.",
+  "f1.a":"Yıldızlar, gezegenler, aylar, kuşaklar, kara delikler, bulutsular","f1.b":"22 çeşit gemi, üstüne istasyonlar ve atlama kapıları","f1.c":"Her gök cismi kendi wiki sayfasına bağlanabilir",
+  "m.live":"Canlı","m.still":"Örnek","m.cal":"Takvim","m.galaxy2":"Galaksi haritası",
+  "f2.h":"Evreninin zihin haritası","f2.p":"Yazdığın her sayfa, bağlantılardan örülü yaşayan bir haritada yerini bulur. Neyin neye bağlı olduğunu — ve hâlâ yazılmayı bekleyenleri — bir bakışta gör.","f2.a":"Sen yazdıkça kendiliğinden büyür","f2.b":"Bir düğüme tıkla, sayfası açılsın","f2.c":"Tek, internetsiz bir dosya olarak dışa aktar","m.mind":"Evren haritası",
+  "f3.h":"Altıgen coğrafi haritalar","f3.p":"Tek tıkla bir kıta üret, sonra boya: ormanlar, dağlar, nehirler, yollar, şehirler, harabeler. Her sembol ait olduğu sayfayı açabilir.","f3.a":"35 zemin, 79 arazi öğesi, 90'dan çok sembol","f3.b":"Fırça, kova, nehir, yol ve bölgeler","f3.c":"Tek tıkla koca bir kıta","m.geo":"Dünya haritası",
+  "f4.h":"Kendini yazan bir wiki","f4.p":"Sorulara cevap ver, cevaplar doğru sayfalara yerleşsin. Bağlantı için <b>[[</b> yaz; adını andığın ama henüz yazmadığın sayfalar seni bekler.","f4.a":"100'den çok sayfa türü: şehirler, tanrılar, savaşlar, türler…","f4.b":"Bağlantılar, geri bağlantılar ve dünyanı tanıyan bir arama","f4.c":"Günün kıvılcımı: kendi dünyandan çıkan sorular","m.wiki":"Wiki sayfası",
+  "f5.h":"Kuralsız soy ağaçları","f5.p":"Beyaz tahta gibi serbest bir tuval: bir karttan ok sürükle, yeni bir bağ doğsun. Gizli sevgililer, yasak evlilikler, ikiden çok ebeveyn, zaman döngüleri — hiçbir şey yasak değil ve Errator çizdiği her bağı anlar.","f5.a":"15 bağ türü; adını senin koyduğun özel bağlar da dahil","f5.b":"Kan bağını, yarım kardeşi, kuzeni ve döngüleri fark eder","f5.c":"Notlar, çerçeveler, kılavuzlar, yapışma, geri alma","m.fam":"Soy tuvali",
+  "f6.h":"Her yerden çıktı al","f6.p":"Dünyanı, bir insanın yazdığı gibi okunan basılabilir bir kitaba çevir — kapak, bölümler ve dizinle. Ya da her haritayı, ağacı ve zaman çizgisini PNG ve PDF olarak kaydet.","f6.a":"Doğal bir anlatımla kitap, iki dilde","f6.b":"Haritalar, ağaçlar ve zaman çizgileri için PNG ve PDF","f6.c":"Tek dosyalık yedekler ve paylaşılabilir zihin haritası","m.exp":"Paylaş ve dışa aktar",
+  "f7.h":"Klavye için yapıldı","f7.p":"<b>Ctrl K</b>'ye bas, herhangi bir sayfaya, haritaya ya da komuta atla. Her stüdyonun kısayolları var ve <b>?</b> hepsini gösterir.","f7.a":"Tam metin aramalı komut paleti","f7.b":"Alt + oklarla geri ve ileri","f7.c":"Her harita ve tuvalde araç tuşları","m.keys":"Kısayollar",
+  "f8.h":"Zaman çizgileri ve takvimler","f8.p":"Çağlar soldan sağa akar, olaylar altlarında durur. Kendi takvimini uydur — aylar, mevsimler, günler — ve her şeyi onunla tarihlendir.","f8.a":"Çağlar, olaylar ve sahneler; sıralı ya da gerçek aralıklarla","f8.b":"Kendi ayları ve mevsimleri olan özel takvimler","f8.c":"Zaman çizgisini görsel ya da PDF olarak dışa aktar","m.tl":"Zaman çizgisi",
+  "r.eye":"Hep ücretsiz","r.h":"Maximian11 yaptı. Herkese ücretsiz.","r.p":"Errator'u Maximian11 yaptı ve bütün hakları ona aittir. Herkes ücretsiz kullanabilir — ve hep öyle kalacak.",
+  "r1.h":"Kelimelerin senin","r1.p":"Errator'da yazdığın metinler sana aittir. Yayımla, sat, üzerine bir kitap ya da oyun kur — ticari olarak da.","r2.h":"Görseller yalnızca senin için","r2.p":"Uygulamada üretilen haritalar, soy ağaçları, zihin haritaları ve öteki görseller kişisel kullanım içindir. Satılamaz.",
+  "r3.h":"Asla satılmaz","r3.p":"Errator ücretsizdir; bu yüzden asla satılamaz — hiç kimse tarafından, hiçbir biçimde, bir ürünün parçası olarak da, hiçbir fiyata.",
+  "r.legal":"<b>© 2026 Maximian11.</b> Errator'un bütün hakları Maximian11'e aittir. Errator herkesin ücretsiz kullanımına açıktır; satılamaz, kiralanamaz, satılık bir ürünün parçası yapılamaz. Yazdığın metinler senindir, ticari olarak da kullanabilirsin; uygulamada üretilen haritalar ve öteki görseller yalnızca kişisel kullanım içindir. <b>Gizlilik:</b> Errator hiçbir sunucuya bağlanmaz — hesap, analitik, çerez ya da izleyici yoktur. Dünyaların senin bilgisayarında kalır.",
+  "d.eye":"İndir","d.h":"İlk dünyana bu gece başla.","d.r1":"Windows 10 ya da 11, 64 bit","d.r2":"Tamamen internetsiz çalışır","d.r3":"Hesap yok, reklam yok, izleme yok","d.r4":"Türkçe ve İngilizce","d.smart":"Windows ilk açılışta bilinmeyen yayıncı uyarısı verebilir; “Ek bilgi → Yine de çalıştır”ı seç.",
+  "n.eye":"Errator'a destek ol","n.h":"İstersen bağış yapabilirsin","n.p":"Errator ücretsizdir ve öyle kalacak. Sana keyif veriyorsa ve büyümesine yardım etmek istersen, aşağıdaki Tron adresine USDT gönderebilirsin. Her bağış yeni özellikler için zaman demek.",
+  "n.copy":"Kopyala","n.warn":"Yalnızca <b>Tron ağı (TRC-20) üzerinden USDT</b> gönder. Başka ağlardan yapılan transferler kaybolur ve geri alınamaz.","n.copied":"Adres kopyalandı","n.nocopy":"Kopyalanamadı; adresi elle seç",
+  "ft.free":"Errator ücretsizdir ve asla satılamaz.","ft.priv":"Çerez yok. İzleyici yok. Sunucu yok.","rot":["yaşasınlar.","nefes alsınlar.","büyüsünler.","konuşsunlar."],"title":"Errator — ücretsiz dünya kurma stüdyosu"},
+};
+T.en.rot=["alive.","yours.","real.","lasting."]; T.en["n.copied"]="Address copied"; T.en["n.nocopy"]="Couldn’t copy — select the address by hand"; T.en.title="Errator — a free worldbuilding studio";
+const EN={}; document.querySelectorAll('[data-i]').forEach(e=>EN[e.dataset.i]=e.textContent); document.querySelectorAll('[data-i-html]').forEach(e=>EN[e.dataset.iHtml]=e.innerHTML);
+let LANG=(()=>{ try{ return localStorage.getItem('errator.site.lang')==='tr'?'tr':'en' }catch(e){ return 'en' } })();
+function t(k){ return LANG==='tr'&&T.tr[k]!=null?T.tr[k]:(T.en[k]!=null?T.en[k]:EN[k]) }
+function applyLang(){ document.documentElement.lang=LANG; document.title=t('title');
+  document.querySelectorAll('[data-i]').forEach(e=>{ const v=LANG==='tr'?T.tr[e.dataset.i]:EN[e.dataset.i]; if(v!=null) e.textContent=v });
+  document.querySelectorAll('[data-i-html]').forEach(e=>{ const v=LANG==='tr'?T.tr[e.dataset.iHtml]:EN[e.dataset.iHtml]; if(v!=null) e.innerHTML=v });
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===LANG))); ri=0; rotSet(t('rot')[0],true) }
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{ LANG=b.dataset.lang; try{ localStorage.setItem('errator.site.lang',LANG) }catch(e){} applyLang() }));
+const motion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---- React Bits: RotatingText ----
+const rot=document.getElementById('rot'); let ri=0;
+function rotSet(w,now){ const old=rot.querySelector('span'); const n=document.createElement('span'); n.textContent=w; if(now||!motion){ rot.innerHTML=''; rot.appendChild(n); return }
+  n.className='in'; rot.appendChild(n); if(old){ old.className='out'; old.style.position='absolute'; old.style.left='0'; setTimeout(()=>old.remove(),520) } requestAnimationFrame(()=>requestAnimationFrame(()=>n.className='')) }
+setInterval(()=>{ const L=t('rot'); ri=(ri+1)%L.length; rotSet(L[ri]) },2600);
+
+// ---- React Bits: Aurora (WebGL) ----
+function aurora(){ const host=document.getElementById('sky'); const cv=document.createElement('canvas'); host.appendChild(cv); const gl=cv.getContext('webgl',{premultipliedAlpha:true,alpha:true}); if(!gl){ host.style.background='radial-gradient(800px 300px at 30% 0%,rgba(198,242,78,.2),transparent 70%)'; return }
+  const VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  const FS=`precision highp float;uniform float uT;uniform vec3 c0;uniform vec3 c1;uniform vec3 c2;uniform vec2 uR;
+vec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}
+float snoise(vec2 v){const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);vec2 i=floor(v+dot(v,C.yy));vec2 x0=v-i+dot(i,C.xx);vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=mod(i,289.0);vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);m=m*m;m=m*m;vec3 x=2.0*fract(p*C.www)-1.0;vec3 h=abs(x)-0.5;vec3 ox=floor(x+0.5);vec3 a0=x-ox;m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;return 130.0*dot(m,g);}
+void main(){vec2 uv=gl_FragCoord.xy/uR;vec3 ramp=uv.x<0.5?mix(c0,c1,uv.x*2.0):mix(c1,c2,(uv.x-0.5)*2.0);float h=snoise(vec2(uv.x*2.0+uT*0.1,uT*0.25))*0.5*1.1;h=exp(h);h=(uv.y*2.0-h+0.2);float I=0.6*h;float a=smoothstep(0.2-0.3,0.2+0.3,I);gl_FragColor=vec4(I*ramp*a,a);}`;
+  const sh=(t,s)=>{ const x=gl.createShader(t); gl.shaderSource(x,s); gl.compileShader(x); return x }; const pr=gl.createProgram(); gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS)); gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS)); gl.linkProgram(pr); gl.useProgram(pr);
+  const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW); const l=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+  const U=n=>gl.getUniformLocation(pr,n); gl.uniform3f(U('c0'),.37,.9,.77); gl.uniform3f(U('c1'),.78,.95,.31); gl.uniform3f(U('c2'),1,.78,.34); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+  let vis=true; new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(host);
+  const draw=t=>{ const r=host.getBoundingClientRect(); const w=Math.max(1,Math.round(r.width*.5)), h=Math.max(1,Math.round(r.height*.5)); if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; gl.viewport(0,0,w,h) }
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform1f(U('uT'),t*.0005); gl.uniform2f(U('uR'),w,h); gl.drawArrays(gl.TRIANGLES,0,3) };
+  if(!motion){ draw(4000); return } const loop=t=>{ if(vis&&!document.hidden) draw(t); requestAnimationFrame(loop) }; requestAnimationFrame(loop) }
+// ilk boyamayı bekletmesin diye WebGL sayfa yüklendikten sonra başlar
+const startSky=()=>setTimeout(()=>{ const s=document.getElementById("sky"); s.style.opacity="0"; aurora(); requestAnimationFrame(()=>{ s.style.transition="opacity 1.2s"; s.style.opacity="" }) },80);
+if(document.readyState==="complete") startSky(); else addEventListener("load",startSky,{once:true});
+
+// ---- React Bits: AnimatedContent (görünür olunca belirir) ----
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target) } }),{threshold:.12,rootMargin:'0px 0px -40px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{ el.style.transitionDelay=(el.closest('.hero')?i*.07:0)+'s'; io.observe(el) });
+
+// ---- React Bits: CountUp ----
+const cio=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) return; cio.unobserve(e.target); const el=e.target, to=+el.dataset.count; if(!motion||!to){ el.textContent=to; return } const t0=performance.now(), d=1400;
+  const step=t=>{ const p=Math.min(1,(t-t0)/d), v=1-Math.pow(1-p,4); el.textContent=Math.round(to*v); if(p<1) requestAnimationFrame(step) }; requestAnimationFrame(step) }),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+// ---- React Bits: SpotlightCard ----
+document.querySelectorAll('.spot').forEach(el=>el.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(); el.style.setProperty('--mx',(e.clientX-r.left)+'px'); el.style.setProperty('--my',(e.clientY-r.top)+'px') }));
+
+// ---- React Bits: TiltedCard ----
+if(motion&&matchMedia('(hover:hover)').matches) document.querySelectorAll('.tilt').forEach(el=>{ let rx=0,ry=0,tx=0,ty=0,raf=0;
+  const step=()=>{ raf=0; rx+=(tx-rx)*.14; ry+=(ty-ry)*.14; el.style.transform=`perspective(1100px) rotateX(${rx}deg) rotateY(${ry}deg)`; if(Math.abs(tx-rx)+Math.abs(ty-ry)>.02) raf=requestAnimationFrame(step) };
+  el.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; tx=-y*6; ty=x*8; el.style.setProperty('--gx',(x+.5)*100+'%'); el.style.setProperty('--gy',(y+.5)*100+'%'); if(!raf) raf=requestAnimationFrame(step) });
+  el.addEventListener('pointerleave',()=>{ tx=0; ty=0; if(!raf) raf=requestAnimationFrame(step) }) });
+
+// ---- React Bits: Magnet ----
+if(motion&&matchMedia('(hover:hover)').matches) document.querySelectorAll('.magnet').forEach(el=>{ el.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(); el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)` }); el.addEventListener('pointerleave',()=>el.style.transform='') });
+
+// ---- React Bits: ClickSpark ----
+(function(){ const cv=document.createElement('canvas'); cv.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:300'; document.body.appendChild(cv); const g=cv.getContext('2d'); let S=[], raf=0;
+  const fit=()=>{ const d=Math.min(2,devicePixelRatio||1); cv.width=innerWidth*d; cv.height=innerHeight*d; cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px'; g.setTransform(d,0,0,d,0,0) }; fit(); addEventListener('resize',fit);
+  const draw=t=>{ raf=0; g.clearRect(0,0,innerWidth,innerHeight); S=S.filter(s=>{ const e=(t-s.t)/420; if(e>=1) return false; const k=1-Math.pow(1-e,2), d=k*22, len=10*(1-k); g.strokeStyle='#C6F24E'; g.lineWidth=2; g.beginPath(); g.moveTo(s.x+Math.cos(s.a)*d,s.y+Math.sin(s.a)*d); g.lineTo(s.x+Math.cos(s.a)*(d+len),s.y+Math.sin(s.a)*(d+len)); g.stroke(); return true }); if(S.length) raf=requestAnimationFrame(draw) };
+  document.addEventListener('click',e=>{ if(!motion||!e.target.closest('.spark')) return; const n=performance.now(); for(let i=0;i<8;i++) S.push({x:e.clientX,y:e.clientY,a:i/8*6.283,t:n}); if(!raf) raf=requestAnimationFrame(draw) }) })();
+
+// ---- ortam: canlı / örnek / takvim ----
+document.querySelectorAll('.mtabs').forEach(tb=>tb.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const m=tb.dataset.media; const img=tb.parentElement.querySelector('img[data-m]');
+  tb.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); img.src=b.dataset.v==='gif'?`media/${m}.gif`:b.dataset.v==='cal'?'media/calendar.webp':`media/${m}.webp` }));
+
+// ---- hero: ekranlar arasında yumuşak geçiş ----
+(function(){ const imgs=[...document.querySelectorAll('#show .slides img')], lab=document.getElementById('show-l'), dots=document.getElementById('show-d'); let k=0, tm=0;
+  imgs.forEach((im,i)=>{ const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label',String(i+1)); b.addEventListener('click',()=>{ go(i); plan() }); dots.appendChild(b) });
+  function go(i){ imgs[k].classList.remove('on'); k=i; const im=imgs[k]; im.loading='eager'; im.classList.add('on'); lab.dataset.i=im.dataset.l; lab.textContent=t(im.dataset.l); [...dots.children].forEach((d,j)=>d.setAttribute('aria-current',String(j===k))) }
+  function plan(){ clearInterval(tm); if(motion) tm=setInterval(()=>go((k+1)%imgs.length),4200) }
+  go(0); plan() })();
+
+// ---- indirme bağlantıları: GitHub Pages'te Releases'a, yerelde downloads/ klasörüne ----
+(function(){ const m=document.querySelector('meta[name="errator-release"]'); let base=m?m.content.trim():'';
+  if(!base&&/\.github\.io$/i.test(location.hostname)){ const user=location.hostname.split('.')[0], seg=location.pathname.split('/').filter(Boolean)[0]||''; const repo=seg&&!seg.includes('.')?seg:user+'.github.io'; base=`https://github.com/${user}/${repo}/releases/latest/download/` }
+  if(!base) return; if(!base.endsWith('/')) base+='/'; document.querySelectorAll('a[href^="downloads/"]').forEach(a=>{ a.href=base+a.getAttribute('href').slice(10); a.removeAttribute('download') }) })();
+
+// ---- bağış: adresi kopyala ----
+const toast=m=>{ const el=document.getElementById('toast'); el.textContent=m; el.classList.add('on'); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove('on'),2200) };
+document.getElementById('copy').addEventListener('click',async()=>{ const a=document.getElementById('tron').textContent.trim(); let ok=false;
+  try{ await Promise.race([navigator.clipboard.writeText(a),new Promise((_,no)=>setTimeout(no,1500))]); ok=true }catch(e){ try{ const ta=document.createElement('textarea'); ta.value=a; ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); ok=document.execCommand('copy'); ta.remove() }catch(e2){} }
+  toast(ok?t('n.copied'):t('n.nocopy')) });
+applyLang();
+</script>
+</body>
+</html>

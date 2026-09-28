@@ -1,0 +1,22 @@
+Errator — © 2026 Maximian11. All rights reserved.
+
+ENGLISH
+All rights to Errator belong to Maximian11.
+Errator is free for everyone to use. The app may never be sold, rented, or bundled into a product for sale — by anyone, in any form, for any price.
+The texts you write in Errator are yours: you may use and sell them commercially — in a book, a game or any other work.
+Maps, family trees, mind maps and other visuals made in the app are for personal use only and may not be sold.
+Privacy: Errator never connects to any server. Your universes live only on your computer; there are no analytics, cookies or trackers.
+Donations (optional): USDT on the Tron network (TRC-20) only — TH31UCWA8LLE8s45dNx1uPEoEWQcuCdvFc. Transfers on any other network will be lost.
+
+TÜRKÇE
+Errator’un bütün hakları Maximian11’e aittir.
+Errator ücretsizdir ve herkes kullanabilir. Uygulama; ücretli ya da ücretsiz, hiçbir şekilde ve hiç kimse tarafından satılamaz, kiralanamaz, satılık bir ürünün parçası yapılamaz.
+Errator’da yazdığın metinler senindir: onları kitap, oyun ya da başka bir işte ticari olarak da kullanabilir, satabilirsin.
+Uygulamada üretilen haritalar, soy ağaçları, zihin haritaları ve öteki görseller yalnızca kişisel kullanım içindir; satılamaz.
+Gizlilik: Errator hiçbir sunucuya bağlanmaz. Evrenlerin yalnızca bilgisayarında durur; analitik, çerez ya da izleyici yoktur.
+Bağış (isteğe bağlı): Yalnızca Tron ağı (TRC-20) üzerinden USDT — TH31UCWA8LLE8s45dNx1uPEoEWQcuCdvFc. Başka ağlardan yapılan transferler kaybolur.
+
+Third-party components / Üçüncü taraf bileşenler
+- Some animated components are adapted from React Bits (© David Haz, MIT + Commons Clause).
+- Embedded fonts (Geist, Literata, Bricolage Grotesque, Instrument Sans, Martian Mono, Newsreader, Cormorant Garamond, EB Garamond, Fraunces) are licensed under the SIL Open Font License.
+- Electron (MIT).

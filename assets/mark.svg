@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 128 128">
+
+<defs><clipPath id="c"><path d="M64 33.6L90.5 48.9V79.1L64 94.4L37.5 79.1V48.9Z"/></clipPath><radialGradient id="g" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#C6F24E" stop-opacity=".22"/><stop offset="1" stop-color="#C6F24E" stop-opacity="0"/></radialGradient></defs>
+
+<path d="M64 30L93.4 47L93.4 81L64 98L34.6 81L34.6 47Z" fill="#111513"/>
+<g clip-path="url(#c)"><path d="M34 74C44 64.5 53 64 62 70.5S82 79 96 66.5V96H34Z" fill="#5EE6C4" opacity=".85"/><path d="M34 86C47 79 58 83 67 86.5S86 88 96 82V96H34Z" fill="#C6F24E"/></g>
+<path d="M84.3 41.7L93.4 47L93.4 81L64 98L34.6 81L34.6 47L64 30L73.7 35.6" fill="none" stroke="#C6F24E" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="79" cy="38.7" r="4.6" fill="#FFC857"/></svg>
