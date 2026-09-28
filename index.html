@@ -3,13 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Errator — a free worldbuilding studio</title>
-<meta name="description" content="Errator is a free, offline worldbuilding studio: real-time galaxy maps, hex world maps, a living wiki, freeform family trees, timelines, calendars and printable books. Made by Maximian11.">
+<title>Errator — Free Worldbuilding App: Maps, Wiki, Family Trees & Timelines</title>
+<meta name="description" content="Free offline worldbuilding app for writers and game masters. Build fantasy and sci-fi worlds with real-time galaxy maps, hex world maps, a wiki, freeform family trees, timelines, custom calendars and printable books. Windows, English & Turkish.">
 <meta name="theme-color" content="#0B0D0C">
 <!-- İndirme adresi: boş kalırsa site github.io'daysa aynı reponun Releases'ından, değilse downloads/ klasöründen indirir.
      Başka bir yerde barındırırsan buraya exe'lerin bulunduğu klasörün adresini yaz, örn. https://github.com/KULLANICI/errator/releases/latest/download/ -->
 <meta name="errator-release" content="https://github.com/maximian11/Errator/releases/latest/download/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="canonical" href="https://errator.app/" id="canon">
+<link rel="alternate" hreflang="en" href="https://errator.app/">
+<link rel="alternate" hreflang="tr" href="https://errator.app/?lang=tr">
+<link rel="alternate" hreflang="x-default" href="https://errator.app/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Maximian11">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Errator">
+<meta property="og:url" content="https://errator.app/">
+<meta property="og:title" content="Errator — Free Worldbuilding App: Maps, Wiki, Family Trees & Timelines">
+<meta property="og:description" content="Free offline worldbuilding app for writers and game masters. Build fantasy and sci-fi worlds with real-time galaxy maps, hex world maps, a wiki, freeform family trees, timelines, custom calendars and printable books. Windows, English & Turkish.">
+<meta property="og:image" content="https://errator.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Errator worldbuilding app: galaxy map, world map and family tree">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Errator — Free Worldbuilding App: Maps, Wiki, Family Trees & Timelines">
+<meta name="twitter:description" content="Free offline worldbuilding app for writers and game masters. Build fantasy and sci-fi worlds with real-time galaxy maps, hex world maps, a wiki, freeform family trees, timelines, custom calendars and printable books. Windows, English & Turkish.">
+<meta name="twitter:image" content="https://errator.app/assets/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Errator","alternateName":"Errator Worldbuilding Studio","url":"https://errator.app/","description":"Free offline worldbuilding app for writers and game masters. Build fantasy and sci-fi worlds with real-time galaxy maps, hex world maps, a wiki, freeform family trees, timelines, custom calendars and printable books. Windows, English & Turkish.","applicationCategory":"DesignApplication","applicationSubCategory":"Worldbuilding","operatingSystem":"Windows 10, Windows 11","softwareVersion":"4.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true,"inLanguage":["en","tr"],"author":{"@type":"Person","name":"Maximian11"},"creator":{"@type":"Person","name":"Maximian11"},"copyrightHolder":{"@type":"Person","name":"Maximian11"},"copyrightYear":2026,"downloadUrl":"https://github.com/maximian11/Errator/releases/latest","image":"https://errator.app/assets/og.png","screenshot":["https://errator.app/media/galaxy.webp","https://errator.app/media/geomap.webp","https://errator.app/media/wiki.webp","https://errator.app/media/family.webp","https://errator.app/media/timeline.webp"],"featureList":["Real-time galaxy and star system maps","Hex world map editor with 35 terrains","Self-writing wiki with 100+ page types","Freeform family tree canvas","Timelines and custom calendars","Printable book export (PDF)","Works fully offline"]}</script>
 <link rel="stylesheet" href="assets/fonts.css">
 <script>document.documentElement.classList.add("js")</script>
 <style>
@@ -171,7 +194,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;justify-content:space-bet
 </head>
 <body>
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="#top"><img src="assets/mark.svg" alt="">Errator</a>
+  <a class="brand" href="#top"><img src="assets/mark.svg" alt="" width="32" height="32">Errator</a>
   <div class="nav-links"><a href="#features" data-i="nav.features">Features</a><a href="#free" data-i="nav.free">Free forever</a><a href="#download" data-i="nav.download">Download</a><a href="#donate" data-i="nav.donate">Donate</a></div>
   <span class="sp"></span>
   <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="tr" aria-pressed="false">TR</button></div>
@@ -192,7 +215,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;justify-content:space-bet
       <p class="cta-note rv"><span class="free shiny" data-i="hero.free">Free forever.</span> <span data-i="hero.note">Windows 10/11 · no account · no internet needed</span></p>
     </div>
     <div class="rv"><div class="frame tilt show" id="show"><div class="bar"><i></i><i></i><i></i><b id="show-l" data-i="m.geo">World map</b><div class="dots" id="show-d"></div></div>
-      <div class="slides"><img class="on" src="media/geomap.webp" data-l="m.geo" alt="Errator world map" loading="eager"><img src="media/family.webp" data-l="m.fam" alt="" loading="lazy"><img src="media/galaxy.webp" data-l="m.galaxy2" alt="" loading="lazy"><img src="media/wiki.webp" data-l="m.wiki" alt="" loading="lazy"><img src="media/timeline.webp" data-l="m.tl" alt="" loading="lazy"></div>
+      <div class="slides"><img class="on" src="media/geomap.webp" data-l="m.geo" alt="Errator hex world map editor with terrain, rivers and cities" loading="eager"><img src="media/family.webp" data-l="m.fam" alt="Errator freeform family tree canvas with relationship lines" loading="lazy"><img src="media/galaxy.webp" data-l="m.galaxy2" alt="Errator real-time galaxy map with orbiting planets and ships" loading="lazy"><img src="media/wiki.webp" data-l="m.wiki" alt="Errator worldbuilding wiki page written from answers" loading="lazy"><img src="media/timeline.webp" data-l="m.tl" alt="Errator visual timeline of eras and events" loading="lazy"></div>
       </div></div>
   </div>
   <div class="wrap"><div class="stats rv">
@@ -210,49 +233,49 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;justify-content:space-bet
   <article class="feat">
     <div class="ft rv"><span class="fnum">01</span><h3 data-i="f1.h">Real-time galaxy maps</h3><p data-i="f1.p">Drop a star system and watch it turn. Planets follow real orbits, ships fly their routes, gravity bends the grid — and time is yours to speed up or pause.</p>
       <ul><li data-i="f1.a">Stars, planets, moons, belts, black holes, nebulae</li><li data-i="f1.b">22 kinds of ships, plus stations and jump gates</li><li data-i="f1.c">Every body can link to its own wiki page</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="galaxy"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.galaxy2">Galaxy map</b></div><img data-m="galaxy" src="media/galaxy.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="galaxy"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.galaxy2">Galaxy map</b></div><img data-m="galaxy" src="media/galaxy.gif" alt="Errator real-time galaxy map with orbiting planets and ships" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">02</span><h3 data-i="f2.h">A mind map of your universe</h3><p data-i="f2.p">Every page you write finds its place on a living map of links. See at a glance what connects to what — and what is still waiting to be written.</p>
       <ul><li data-i="f2.a">Grows by itself as you write</li><li data-i="f2.b">Click any node to open its page</li><li data-i="f2.c">Export it as a single offline file</li></ul></div>
-    <div class="rv"><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.mind">Universe map</b></div><img src="media/mindmap.webp" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.mind">Universe map</b></div><img src="media/mindmap.webp" alt="Errator mind map of a fictional universe" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">03</span><h3 data-i="f3.h">Geographic hex maps</h3><p data-i="f3.p">Generate a continent in a click, then paint it: forests, mountains, rivers, roads, cities, ruins. Every symbol can open the page it belongs to.</p>
       <ul><li data-i="f3.a">35 terrains, 79 landmarks, 90+ symbols</li><li data-i="f3.b">Brushes, fill, rivers, roads and regions</li><li data-i="f3.c">A whole continent in one click</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="geomap"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.geo">World map</b></div><img data-m="geomap" src="media/geomap.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="geomap"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.geo">World map</b></div><img data-m="geomap" src="media/geomap.gif" alt="Errator hex world map editor with terrain, rivers and cities" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">04</span><h3 data-i="f4.h">A wiki that writes itself</h3><p data-i="f4.p">Answer questions and the answers land in the right pages. Type <b>[[</b> to link anything; pages you mention but haven't written yet are waiting for you.</p>
       <ul><li data-i="f4.a">100+ page types: cities, gods, wars, species…</li><li data-i="f4.b">Links, backlinks and a search that knows your world</li><li data-i="f4.c">Daily sparks: questions drawn from your own world</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="wiki"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.wiki">Wiki page</b></div><img data-m="wiki" src="media/wiki.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="wiki"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.wiki">Wiki page</b></div><img data-m="wiki" src="media/wiki.gif" alt="Errator worldbuilding wiki page written from answers" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">05</span><h3 data-i="f5.h">Family trees without rules</h3><p data-i="f5.p">A freeform canvas, like a whiteboard: drag an arrow from a card and a new tie is born. Secret lovers, forbidden marriages, more than two parents, time loops — nothing is off-limits, and Errator understands every tie it draws.</p>
       <ul><li data-i="f5.a">15 kinds of ties, including ones you name yourself</li><li data-i="f5.b">Spots blood ties, half-siblings, cousins and loops</li><li data-i="f5.c">Notes, frames, guides, snapping, undo</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="family"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.fam">Family canvas</b></div><img data-m="family" src="media/family.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="family"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.fam">Family canvas</b></div><img data-m="family" src="media/family.gif" alt="Errator freeform family tree canvas with relationship lines" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">06</span><h3 data-i="f6.h">Export from anywhere</h3><p data-i="f6.p">Turn your world into a printable book that reads like a person wrote it — with a cover, chapters and an index. Or save any map, tree or timeline as PNG and PDF.</p>
       <ul><li data-i="f6.a">A book in natural prose, in two languages</li><li data-i="f6.b">PNG and PDF for maps, trees and timelines</li><li data-i="f6.c">One-file backups and a shareable mind map</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="export"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.exp">Share & export</b></div><img data-m="export" src="media/export.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="export"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.exp">Share & export</b></div><img data-m="export" src="media/export.gif" alt="Errator export menu and printable book preview" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">07</span><h3 data-i="f7.h">Made for the keyboard</h3><p data-i="f7.p">Press <b>Ctrl K</b> and jump to any page, map or command. Every studio has its shortcuts, and <b>?</b> always shows them.</p>
       <ul><li data-i="f7.a">Command palette with full-text search</li><li data-i="f7.b">Back and forward with Alt + arrows</li><li data-i="f7.c">Tool keys in every map and canvas</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="shortcuts"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.keys">Shortcuts</b></div><img data-m="shortcuts" src="media/shortcuts.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="shortcuts"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.keys">Shortcuts</b></div><img data-m="shortcuts" src="media/shortcuts.gif" alt="Errator command palette and keyboard shortcuts" loading="lazy"></div></div>
   </article>
 
   <article class="feat">
     <div class="ft rv"><span class="fnum">08</span><h3 data-i="f8.h">Timelines and calendars</h3><p data-i="f8.p">Ages flow from left to right; events hang beneath them. Invent your own calendar — months, seasons, weekdays — and date everything in it.</p>
       <ul><li data-i="f8.a">Eras, events and scenes in order or true intervals</li><li data-i="f8.b">Custom calendars with their own months and seasons</li><li data-i="f8.c">Export the timeline as an image or PDF</li></ul></div>
-    <div class="rv"><div class="mtabs" data-media="timeline"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button><button type="button" aria-pressed="false" data-v="cal" data-i="m.cal">Calendar</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.tl">Timeline</b></div><img data-m="timeline" src="media/timeline.gif" alt="" loading="lazy"></div></div>
+    <div class="rv"><div class="mtabs" data-media="timeline"><button type="button" aria-pressed="true" data-v="gif" data-i="m.live">In action</button><button type="button" aria-pressed="false" data-v="webp" data-i="m.still">Example</button><button type="button" aria-pressed="false" data-v="cal" data-i="m.cal">Calendar</button></div><div class="frame tilt"><div class="bar"><i></i><i></i><i></i><b data-i="m.tl">Timeline</b></div><img data-m="timeline" src="media/timeline.gif" alt="Errator visual timeline of eras and events" loading="lazy"></div></div>
   </article>
 </div></section>
 
@@ -329,13 +352,17 @@ const T={
   "d.eye":"İndir","d.h":"İlk dünyana bu gece başla.","d.r1":"Windows 10 ya da 11, 64 bit","d.r2":"Tamamen internetsiz çalışır","d.r3":"Hesap yok, reklam yok, izleme yok","d.r4":"Türkçe ve İngilizce","d.smart":"Windows ilk açılışta bilinmeyen yayıncı uyarısı verebilir; “Ek bilgi → Yine de çalıştır”ı seç.",
   "n.eye":"Errator'a destek ol","n.h":"İstersen bağış yapabilirsin","n.p":"Errator ücretsizdir ve öyle kalacak. Sana keyif veriyorsa ve büyümesine yardım etmek istersen, aşağıdaki Tron adresine USDT gönderebilirsin. Her bağış yeni özellikler için zaman demek.",
   "n.copy":"Kopyala","n.warn":"Yalnızca <b>Tron ağı (TRC-20) üzerinden USDT</b> gönder. Başka ağlardan yapılan transferler kaybolur ve geri alınamaz.","n.copied":"Adres kopyalandı","n.nocopy":"Kopyalanamadı; adresi elle seç",
-  "ft.free":"Errator ücretsizdir ve asla satılamaz.","ft.priv":"Çerez yok. İzleyici yok. Sunucu yok.","rot":["yaşasınlar.","nefes alsınlar.","büyüsünler.","konuşsunlar."],"title":"Errator — ücretsiz dünya kurma stüdyosu"},
+  "ft.free":"Errator ücretsizdir ve asla satılamaz.","ft.priv":"Çerez yok. İzleyici yok. Sunucu yok.","rot":["yaşasınlar.","nefes alsınlar.","büyüsünler.","konuşsunlar."],"title":"Errator — Ücretsiz Dünya Kurma Uygulaması: Harita, Wiki, Soy Ağacı","desc":"Yazarlar ve FRP oyun yöneticileri için ücretsiz, internetsiz dünya kurma uygulaması. Gerçek zamanlı galaksi haritaları, altıgen dünya haritaları, wiki, serbest soy ağaçları, zaman çizgileri, özel takvimler ve basılabilir kitap. Windows, Türkçe ve İngilizce."},
 };
-T.en.rot=["alive.","yours.","real.","lasting."]; T.en["n.copied"]="Address copied"; T.en["n.nocopy"]="Couldn’t copy — select the address by hand"; T.en.title="Errator — a free worldbuilding studio";
+T.en.rot=["alive.","yours.","real.","lasting."]; T.en["n.copied"]="Address copied"; T.en["n.nocopy"]="Couldn’t copy — select the address by hand"; T.en.title="Errator — Free Worldbuilding App: Maps, Wiki, Family Trees & Timelines"; T.en.desc="Free offline worldbuilding app for writers and game masters. Build fantasy and sci-fi worlds with real-time galaxy maps, hex world maps, a wiki, freeform family trees, timelines, custom calendars and printable books. Windows, English & Turkish.";
 const EN={}; document.querySelectorAll('[data-i]').forEach(e=>EN[e.dataset.i]=e.textContent); document.querySelectorAll('[data-i-html]').forEach(e=>EN[e.dataset.iHtml]=e.innerHTML);
-let LANG=(()=>{ try{ return localStorage.getItem('errator.site.lang')==='tr'?'tr':'en' }catch(e){ return 'en' } })();
+const QL=new URLSearchParams(location.search).get('lang');
+let LANG=(()=>{ if(QL==='tr'||QL==='en') return QL; try{ return localStorage.getItem('errator.site.lang')==='tr'?'tr':'en' }catch(e){ return 'en' } })();
 function t(k){ return LANG==='tr'&&T.tr[k]!=null?T.tr[k]:(T.en[k]!=null?T.en[k]:EN[k]) }
-function applyLang(){ document.documentElement.lang=LANG; document.title=t('title');
+const setMeta=(sel,v)=>{ const m=document.querySelector(sel); if(m) m.setAttribute('content',v) };
+function applyLang(){ document.documentElement.lang=LANG; document.title=t('title'); setMeta('meta[name=description]',t('desc')); setMeta('meta[property="og:locale"]',LANG==='tr'?'tr_TR':'en_US');
+  const c=document.getElementById('canon'); if(c) c.href=LANG==='tr'?'https://errator.app/?lang=tr':'https://errator.app/';
+  try{ const u=new URL(location.href); if(LANG==='tr') u.searchParams.set('lang','tr'); else u.searchParams.delete('lang'); history.replaceState(null,'',u) }catch(e){}
   document.querySelectorAll('[data-i]').forEach(e=>{ const v=LANG==='tr'?T.tr[e.dataset.i]:EN[e.dataset.i]; if(v!=null) e.textContent=v });
   document.querySelectorAll('[data-i-html]').forEach(e=>{ const v=LANG==='tr'?T.tr[e.dataset.iHtml]:EN[e.dataset.iHtml]; if(v!=null) e.innerHTML=v });
   document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===LANG))); ri=0; rotSet(t('rot')[0],true) }
