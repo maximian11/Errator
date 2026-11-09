@@ -2,7 +2,7 @@
 
 A free, offline worldbuilding studio: real-time galaxy maps, hex world maps, a living wiki, freeform family trees, timelines, calendars and printable books.
 
-**[Download for Windows](../../releases/latest)**
+**[Download for Windows](../../releases/latest)** · **[Download for Linux (AppImage)](../../releases/latest/download/Errator-x86_64.AppImage)**
 
 © 2026 Maximian11. Errator is free for everyone to use and may never be sold. The texts you write are yours, including for commercial use; maps and other visuals made in the app are for personal use only. See [LICENSE.txt](LICENSE.txt).
 
